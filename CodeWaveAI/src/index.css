@@ -12,6 +12,9 @@
   --font-grotesk: "Space Grotesk", sans-serif;
   color-scheme: dark;
 }
+body{
+  /* background-color: #241f2b; */
+}
 
 * {
   scroll-behavior: smooth
