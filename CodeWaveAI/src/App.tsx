@@ -3,6 +3,7 @@ import Header from "./components/Header.tsx";
 import Hero from './components/Hero.tsx';
 import Benefits from "./components/Benefits.tsx";
 import Section from './components/Section'
+import Collaboration from './components/Collaboration.tsx';
 
 function App() {
   return (
@@ -12,6 +13,8 @@ function App() {
     <Header />
     <Hero />
     <Benefits />
+    <Collaboration/>
+    {/* <Benefits /> */}
     </Section>
     </div>
     </>

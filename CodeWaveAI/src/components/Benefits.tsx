@@ -5,7 +5,7 @@ import ClipPath from "../assets/svg/ClipPath.tsx";
 import benefitImage2 from "../assets/robo4.jpeg"
 import "./css/benefits.css"
 import { GradientLight } from "./design/Benefits";
-
+import { BackgroundCircles, BottomLine, Gradient } from "./design/Hero";
 function Benefits() {
   return (
     <div>
@@ -68,7 +68,6 @@ function Benefits() {
         </div>
       </div>
     </Section>
-      
     </div>
   )
 }

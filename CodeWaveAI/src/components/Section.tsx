@@ -1,5 +1,5 @@
-// import SectionSvg from "../assets/svg/SectionSvg";
-// import PlusSvg from "../assets/svg/PlusSvg";
+import SectionSvg from "../assets/svg/SectionSvg";
+import PlusSvg from "../assets/svg/PlusSvg";
 //@ts-ignore
 const Section = ({
 //@ts-ignore
@@ -28,10 +28,7 @@ const Section = ({
               crossesOffset && crossesOffset
             } pointer-events-none lg:block xl:left-10 right-10`}
           />
-          {/* <PlusSvg className="hidden absolute top-[54.9375rem] left-[2.1875rem] z-2 pointer-events-none xl:block" />
-
-<PlusSvg className="hidden absolute top-[54.9375rem] right-[2.1875rem] z-2 pointer-events-none xl:block" /> */}
-          {/* <SectionSvg crossesOffset={crossesOffset} /> */}
+          <SectionSvg crossesOffset={crossesOffset} />
         </>
       )}
     </div>
