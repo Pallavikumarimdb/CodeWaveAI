@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96" id="ai-brain">
+  <g>
+    <g>
+      <path fill="#40e0d0" d="M48,24.37V35H39a4,4,0,0,0-4,4V57a4,4,0,0,0,4,4h9V71.63A12.22,12.22,0,0,1,24.8,77a11.81,11.81,0,0,1-2.87.34,12.09,12.09,0,0,1-4.89-1A12.22,12.22,0,0,1,9.7,65.11,12.51,12.51,0,0,1,10,62.57,12.22,12.22,0,0,1,12.6,40.41,12.21,12.21,0,0,1,21.93,20.3a11.92,11.92,0,0,1,2.25.21A12.22,12.22,0,0,1,48,24.37Z"></path>
+      <path fill="#fff" d="M34.83,81.69a12.11,12.11,0,0,1-4-4.7,11.81,11.81,0,0,1-2.87.34,12.09,12.09,0,0,1-4.89-1,12.22,12.22,0,0,1-7.34-11.2,12.51,12.51,0,0,1,.26-2.54,12.22,12.22,0,0,1,2.64-22.16A12.21,12.21,0,0,1,27.91,20.3a11.92,11.92,0,0,1,2.25.21,12.24,12.24,0,0,1,8.58-8,12.07,12.07,0,0,0-3-.38,12.23,12.23,0,0,0-11.6,8.36,11.92,11.92,0,0,0-2.25-.21A12.21,12.21,0,0,0,12.6,40.41,12.22,12.22,0,0,0,10,62.57a12.51,12.51,0,0,0-.26,2.54A12.22,12.22,0,0,0,17,76.31a12.09,12.09,0,0,0,4.89,1A11.81,11.81,0,0,0,24.8,77a12.15,12.15,0,0,0,14,6.48A12.14,12.14,0,0,1,34.83,81.69Z" opacity=".4"></path>
+      <path fill="#633a82" d="M57,35H39a4,4,0,0,0-4,4V57a4,4,0,0,0,4,4H57a4,4,0,0,0,4-4V39A4,4,0,0,0,57,35ZM51,53.5H45a2,2,0,0,1-2-2v-7a2,2,0,0,1,2-2h6a2,2,0,0,1,2,2v7A2,2,0,0,1,51,53.5Z"></path>
+      <rect width="10" height="11" x="43" y="42.5" fill="#f1fcfc" rx="2"></rect>
+      <path fill="#40e0d0" d="M86,62.57a12.51,12.51,0,0,1,.26,2.54A12.22,12.22,0,0,1,79,76.31a12.09,12.09,0,0,1-4.89,1A11.81,11.81,0,0,1,71.2,77,12.22,12.22,0,0,1,48,71.63V61h9a4,4,0,0,0,4-4V39a4,4,0,0,0-4-4H48V24.37a12.22,12.22,0,0,1,23.82-3.86,11.92,11.92,0,0,1,2.25-.21A12.21,12.21,0,0,1,83.4,40.41,12.22,12.22,0,0,1,86,62.57Z"></path>
+      <path d="M92,52.07a12.21,12.21,0,0,0-8.6-11.66A12.21,12.21,0,0,0,74.07,20.3a11.92,11.92,0,0,0-2.25.21,12.23,12.23,0,0,0-11.6-8.36,11.86,11.86,0,0,0-3,.39,12.24,12.24,0,0,1,8.56,8A11.92,11.92,0,0,1,68,20.3a12.21,12.21,0,0,1,9.33,20.11A12.22,12.22,0,0,1,80,62.57a12.51,12.51,0,0,1,.26,2.54,12.22,12.22,0,0,1-7.34,11.2,12.09,12.09,0,0,1-4.89,1A11.81,11.81,0,0,1,65.16,77a12.22,12.22,0,0,1-7.94,6.47,11.86,11.86,0,0,0,3,.39A12.24,12.24,0,0,0,71.2,77a11.81,11.81,0,0,0,2.87.34,12.09,12.09,0,0,0,4.89-1,12.22,12.22,0,0,0,7.34-11.2A12.51,12.51,0,0,0,86,62.57,12.23,12.23,0,0,0,92,52.07Z" opacity=".2"></path>
+      <circle cx="71.16" cy="32.08" r="4.5" fill="#633a82"></circle>
+      <circle cx="73.18" cy="63.96" r="4.5" fill="#633a82"></circle>
+      <circle cx="16.52" cy="55.5" r="4.5" fill="#633a82"></circle>
+      <circle cx="27.92" cy="28.22" r="4.5" fill="#633a82"></circle>
+      <path fill="none" stroke="#192965" stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M48,71.63A12.22,12.22,0,0,1,24.8,77a11.81,11.81,0,0,1-2.87.34,12.09,12.09,0,0,1-4.89-1A12.22,12.22,0,0,1,9.7,65.11,12.51,12.51,0,0,1,10,62.57,12.22,12.22,0,0,1,12.6,40.41,12.21,12.21,0,0,1,21.93,20.3a11.92,11.92,0,0,1,2.25.21A12.22,12.22,0,0,1,48,24.37"></path>
+      <path fill="none" stroke="#192965" stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M57,35H39a4,4,0,0,0-4,4V57a4,4,0,0,0,4,4H57a4,4,0,0,0,4-4V39A4,4,0,0,0,57,35ZM51,53.5H45a2,2,0,0,1-2-2v-7a2,2,0,0,1,2-2h6a2,2,0,0,1,2,2v7A2,2,0,0,1,51,53.5Z"></path>
+      <rect width="10" height="11" x="43" y="42.5" fill="none" stroke="#192965" stroke-linecap="round" stroke-linejoin="round" stroke-width="4" rx="2"></rect>
+      <path fill="none" stroke="#192965" stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M48 24.37a12.22 12.22 0 0 1 23.82-3.86 11.92 11.92 0 0 1 2.25-.21 12.2 12.2 0 0 1 12 9.8M85.58 69.24A12.26 12.26 0 0 1 79 76.31a12.09 12.09 0 0 1-4.89 1A11.81 11.81 0 0 1 71.2 77 12.22 12.22 0 0 1 48 71.63M88.51 43.53a12.21 12.21 0 0 1-2.47 19 12.51 12.51 0 0 1 .26 2.54 12 12 0 0 1-.72 4.13M86.06 30.1A12.21 12.21 0 0 1 83.4 40.41M73.18 36.1C77.56 42 83.4 40.41 83.4 40.41"></path>
+      <circle cx="71.16" cy="32.08" r="4.5" fill="none" stroke="#192965" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"></circle>
+      <circle cx="73.18" cy="63.96" r="4.5" fill="none" stroke="#192965" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"></circle>
+      <circle cx="16.52" cy="55.5" r="4.5" fill="none" stroke="#192965" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"></circle>
+      <circle cx="27.92" cy="28.22" r="4.5" fill="none" stroke="#192965" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"></circle>
+      <line x1="41.43" x2="41.43" y1="29.08" y2="35" fill="none" stroke="#192965" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"></line>
+      <line x1="48" x2="48" y1="29.08" y2="35" fill="none" stroke="#192965" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"></line>
+      <line x1="54.57" x2="54.57" y1="29.08" y2="35" fill="none" stroke="#192965" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"></line>
+      <line x1="61" x2="66.92" y1="53.74" y2="53.74" fill="none" stroke="#192965" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"></line>
+      <line x1="61" x2="66.92" y1="47.17" y2="47.17" fill="none" stroke="#192965" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"></line>
+      <line x1="61" x2="66.92" y1="40.6" y2="40.6" fill="none" stroke="#192965" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"></line>
+      <line x1="29.02" x2="34.94" y1="53.8" y2="53.8" fill="none" stroke="#192965" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"></line>
+      <line x1="29.02" x2="34.94" y1="47.23" y2="47.23" fill="none" stroke="#192965" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"></line>
+      <line x1="29.02" x2="34.94" y1="40.66" y2="40.66" fill="none" stroke="#192965" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"></line>
+      <line x1="41.43" x2="41.43" y1="61" y2="66.92" fill="none" stroke="#192965" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"></line>
+      <line x1="48" x2="48" y1="61" y2="66.92" fill="none" stroke="#192965" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"></line>
+      <line x1="54.57" x2="54.57" y1="61" y2="66.92" fill="none" stroke="#192965" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"></line>
+      <path fill="none" stroke="#192965" stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M12.6 40.41s8.86 2.88 5.86 11M25.62 24.36a6.54 6.54 0 0 1-1.44-3.85M24.8 77S22.9 70.66 26 66.34M74.3 68.31c-.1 4.4-3.1 8.68-3.1 8.68M86 62.57s-6.12-1.93-2.64-9.73M24.22 72.65S31.8 77.56 37 70.84M70 79s-4.36-7.7-11.56-2"></path>
+    </g>
+  </g>
+</svg>

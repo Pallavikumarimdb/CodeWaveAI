@@ -5,7 +5,7 @@ import { useLocation } from 'react-router-dom'
 import { disablePageScroll, enablePageScroll } from "scroll-lock";
 
 import MenuSvg from "../assets/svg/MenuSvg.tsx";
-import CodeWave from "../assets/CodeWaveAI-logo3.webp";
+import CodeWave from "../assets/CodeWaveAI-logo2.webp";
 import { useState } from 'react';
 import { HamburgerMenu } from "./design/Header";
 import './css/header.css'

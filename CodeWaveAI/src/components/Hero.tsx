@@ -14,13 +14,14 @@ function Hero() {
 
     return (
         <Section
-            className="pt-[12rem] -mt-[5.25rem]"
+            className="pt-[9rem] -mt-[5.25rem]"
             crosses
             crossesOffset="lg:translate-y-[5.25rem]"
             customPaddings
             id="hero"
         >
-            <div className="container relative" ref={parallaxRef}>
+            
+            <div className="container relative pt-10" ref={parallaxRef}>
                 <div className="relative z-1 max-w-[62rem] mx-auto text-center mb-[3.875rem] md:mb-20 lg:mb-[6.25rem]">
                     <h1 className="h1 mb-6">
                         Explore the Possibilities of&nbsp;AI&nbsp; with {` `}
@@ -40,11 +41,11 @@ function Hero() {
                         with CodeWaveAI, the open AI Dev Tool.
                     </p>
                     <Button href="/pricing" white>
-                        WaveAI.IT
+                       Code Editor
                     </Button>
-                    <button className="relative ml-10 mt-10  inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-pink-500 to-orange-400 group-hover:from-pink-500 group-hover:to-orange-400 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800">
+                    <button className="relative ml-10 mt-2  inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-pink-500 to-orange-400 group-hover:from-pink-500 group-hover:to-orange-400 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800">
                         <span className="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900  rounded-md group-hover:bg-opacity-0">
-                            WaveAI.New
+                        Generat.it
                         </span>
                     </button>
                 </div>
@@ -69,10 +70,10 @@ function Hero() {
                         </div>
                         <Gradient />
                     </div>
-                    <div className="absolute -top-[54%] left-1/2 w-[234%] -translate-x-1/2 md:-top-[46%] md:w-[138%] lg:-top-[104%]">
+                    <div className=" absolute -top-[54%] left-1/2 w-[234%] -translate-x-1/2 md:-top-[46%] md:w-[138%] lg:-top-[104%] ">
                         <img
                             src={heroBackground}
-                            className="w-full opacity-5 mt-[70px]"
+                            className="h-[1800px] w-full opacity-5 mt-[70px]"
                             width={1440}
                             height={1800}
                             alt="hero"
