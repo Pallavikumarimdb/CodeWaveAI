@@ -4,7 +4,9 @@ import Hero from './components/Hero.tsx';
 import Benefits from "./components/Benefits.tsx";
 import Section from './components/Section'
 import Collaboration from './components/Collaboration.tsx';
-
+import Services from './components/Services.tsx';
+import Pricing from './components/Pricing.tsx';
+import Footer from './components/Footer.tsx';
 function App() {
   return (
     <>
@@ -14,7 +16,9 @@ function App() {
     <Hero />
     <Benefits />
     <Collaboration/>
-    {/* <Benefits /> */}
+    <Services />
+    <Pricing/>
+    <Footer/>
     </Section>
     </div>
     </>

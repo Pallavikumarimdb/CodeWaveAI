@@ -126,7 +126,7 @@ const benefits = [
       backgroundUrl: "./src/assets/benefits/card-6.svg",
       iconUrl: "./src/assets/benefits/transfer.svg",
       imageUrl: benefitImage2,
-      light: true,
+      // light: true,
     },
  ];
 
