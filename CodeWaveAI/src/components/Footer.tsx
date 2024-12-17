@@ -1,7 +1,6 @@
 import React from "react";
 import Section from "./Section";
 
-
 const Footer = () => {
   return (
     <Section crosses className="!px-0 !py-10">
@@ -9,7 +8,6 @@ const Footer = () => {
         <p className="caption text-n-4 lg:block">
           © {new Date().getFullYear()}. All rights reserved.
         </p>
-
         <ul className="flex gap-5 flex-wrap">
           {socials.map((item) => (
             <a
@@ -40,20 +38,20 @@ export default Footer;
     },
     {
       id: "1",
-      title: "Twitter",
+      title: "gitwhite",
       iconUrl: "./src/assets/socials/gitwhite.png",
-      url: "#",
+      url: "https://github.com/Pallavikumarimdb",
     },
     {
       id: "2",
-      title: "Instagram",
+      title: "link",
       iconUrl: "./src/assets/socials/link.svg",
-      url: "#",
+      url: "c:\Users\Pallavi\AppData\Local\Temp\linkedin3.svg",
     },
     {
       id: "3",
-      title: "Telegram",
+      title: "twitter",
       iconUrl: "./src/assets/socials/twitter.svg",
-      url: "#",
+      url: "https://x.com/pallavimdb",
     },
   ];

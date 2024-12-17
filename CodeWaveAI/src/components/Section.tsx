@@ -1,5 +1,4 @@
 import SectionSvg from "../assets/svg/SectionSvg";
-import PlusSvg from "../assets/svg/PlusSvg";
 //@ts-ignore
 const Section = ({
 //@ts-ignore
