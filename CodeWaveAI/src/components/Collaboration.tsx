@@ -3,6 +3,16 @@ import Section from "./Section";
 import { LeftCurve, RightCurve } from "./design/Collaboration";
 import CodeWave from "../assets/CodeWaveAI-logo2.webp";
 import tick from "../assets/tick.svg";
+import Figma from "../assets/figma.png";
+import Firebase from "../assets/Firebase.png";
+import mongodb from "../assets/mongodb.png";
+import mui from "../assets/mui.png";
+import mysql from "../assets/mysql.png";
+import node from "../assets/node-js.png";
+import postger from "../assets/postger.png";
+import prisma from "../assets/prisma.webp";
+
+
 const Collaboration = () => {
   return (
     <div className="">
@@ -40,7 +50,7 @@ const Collaboration = () => {
                     src={CodeWave}
                     width={58}
                     height={58}
-                    alt="brainwave"
+                    alt="Codewave"
                   />
                 </div>
               </div>
@@ -108,56 +118,56 @@ export default Collaboration;
   {
     id: "0",
     title: "Figma",
-    icon: "./src/assets/figma.png",
+    icon: Figma,
     width: 26,
     height: 36,
   },
   {
     id: "1",
-    title: "Notion",
-    icon: "./src/assets/Firebase.png",
+    title: "Firebase",
+    icon: Firebase,
     width: 34,
     height: 36,
   },
   {
     id: "2",
-    title: "Discord",
-    icon: "./src/assets/mongodb.png",
+    title: "mongodb",
+    icon: mongodb,
     width: 36,
     height: 28,
   },
   {
     id: "3",
-    title: "Slack",
-    icon: "./src/assets/mui.png",
+    title: "mui",
+    icon: mui,
     width: 34,
     height: 35,
   },
   {
     id: "4",
-    title: "Photoshop",
-    icon: "./src/assets/mysql.png",
+    title: "mysql",
+    icon: mysql,
     width: 34,
     height: 34,
   },
   {
     id: "5",
-    title: "Protopie",
-    icon: "./src/assets/node-js.png",
+    title: "node",
+    icon: node,
     width: 34,
     height: 34,
   },
   {
     id: "6",
-    title: "Framer",
-    icon: "./src/assets/postger.png",
+    title: "postger",
+    icon: postger,
     width: 26,
     height: 34,
   },
   {
     id: "7",
-    title: "Raindrop",
-    icon: "./src/assets/prisma.webp",
+    title: "prisma",
+    icon: prisma,
     width: 38,
     height: 32,
   },
