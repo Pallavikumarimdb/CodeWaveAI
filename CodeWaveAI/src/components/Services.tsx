@@ -6,6 +6,11 @@ import service2 from "../assets/web2.webp";
 import service3 from "../assets/web1.webp";
 import { GradientLight } from "./design/Benefits";
 import { ScrollParallax } from "react-just-parallax";
+import aibrain from "../assets/benefits/ai-brain.svg";
+import ai from "../assets/benefits/ai.svg";
+import bug from "../assets/benefits/bug.svg";
+import copy from "../assets/benefits/copy.svg";
+import transfer from "../assets/benefits/transfer.svg";
 
 import {
   PhotoChatMessage,
@@ -130,6 +135,7 @@ const Services = () => {
 export default Services;
 
 
+
  const brainwaveServices = [
     "Code generating",
     "Code enhance",
@@ -137,9 +143,9 @@ export default Services;
   ];
   
  const brainwaveServicesIcons = [
-    "./src/assets/benefits/ai-brain.svg",
-   "./src/assets/benefits/ai.svg",
-   "./src/assets/benefits/bug.svg",
-  "./src/assets/benefits/copy.svg",
-    "./src/assets/benefits/joystick.svg",
+  aibrain,
+  ai,
+  bug,
+  copy,
+  transfer,
   ];

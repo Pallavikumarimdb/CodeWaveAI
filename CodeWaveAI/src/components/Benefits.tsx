@@ -5,6 +5,12 @@ import ClipPath from "../assets/svg/ClipPath.tsx";
 import benefitImage2 from "../assets/robo4.jpeg"
 import "./css/benefits.css"
 import { GradientLight } from "./design/Benefits";
+import aibrain from "../assets/benefits/ai-brain.svg";
+import ai from "../assets/benefits/ai.svg";
+import bug from "../assets/benefits/bug.svg";
+import copy from "../assets/benefits/copy.svg";
+import transfer from "../assets/benefits/transfer.svg";
+import joystick from "../assets/benefits/joystick.svg";
 
 function Benefits() {
   return (
@@ -69,21 +75,23 @@ function Benefits() {
 
 export default Benefits
 
+
+
 const benefits = [
   {
     id: "0",
     title: "Ask anything",
     text: "Lets users quickly find answers to their questions without having to search through multiple sources.",
     backgroundUrl: "./src/assets/benefits/card-1.svg",
-    iconUrl: "./src/assets/benefits/ai-brain.svg",
-    imageUrl: "./src/assets/robo4.jpeg",
+    iconUrl: aibrain,
+    imageUrl: benefitImage2,
   },
   {
     id: "1",
     title: "Improve everyday",
     text: "The app uses natural language processing to understand user queries and provide accurate and relevant responses.",
     backgroundUrl: "./src/assets/benefits/card-2.svg",
-    iconUrl: "./src/assets/benefits/ai.svg",
+    iconUrl: ai,
     imageUrl: benefitImage2,
     light: true,
   },
@@ -92,7 +100,7 @@ const benefits = [
     title: "Connect everywhere",
     text: "Connect with the AI chatbot from anywhere, on any device, making it more accessible and convenient.",
     backgroundUrl: "./src/assets/benefits/card-3.svg",
-    iconUrl: "./src/assets/benefits/bug.svg",
+    iconUrl: bug,
     imageUrl: benefitImage2,
   },
   {
@@ -100,7 +108,7 @@ const benefits = [
     title: "Fast responding",
     text: "Lets users quickly find answers to their questions without having to search through multiple sources.",
     backgroundUrl: "./src/assets/benefits/card-4.svg",
-    iconUrl: "./src/assets/benefits/copy.svg",
+    iconUrl: copy,
     imageUrl: benefitImage2,
     light: true,
   },
@@ -109,7 +117,7 @@ const benefits = [
     title: "Ask anything",
     text: "Lets users quickly find answers to their questions without having to search through multiple sources.",
     backgroundUrl: "./src/assets/benefits/card-5.svg",
-    iconUrl: "./src/assets/benefits/joystick.svg",
+    iconUrl:joystick,
     imageUrl: benefitImage2,
     //   light: true,
   },
@@ -118,7 +126,7 @@ const benefits = [
     title: "Improve everyday",
     text: "The app uses natural language processing to understand user queries and provide accurate and relevant responses.",
     backgroundUrl: "./src/assets/benefits/card-6.svg",
-    iconUrl: "./src/assets/benefits/transfer.svg",
+    iconUrl: transfer,
     imageUrl: benefitImage2,
     // light: true,
   },

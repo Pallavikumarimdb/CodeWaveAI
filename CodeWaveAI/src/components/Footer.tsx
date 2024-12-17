@@ -1,5 +1,9 @@
 // import React from "react";
 import Section from "./Section";
+import discord from "../assets/socials/discord.svg";
+import gitwhite from "../assets/socials/gitwhite.png";
+import link from "../assets/socials/link.svg";
+import twitter from "../assets/socials/twitter.svg";
 
 const Footer = () => {
   return (
@@ -29,29 +33,31 @@ export default Footer;
 
 
 
+
+
  const socials = [
     {
       id: "0",
       title: "Discord",
-      iconUrl: "./src/assets/socials/discord.svg",
+      iconUrl: discord,
       url: "#",
     },
     {
       id: "1",
       title: "gitwhite",
-      iconUrl: "./src/assets/socials/gitwhite.png",
+      iconUrl: gitwhite,
       url: "https://github.com/Pallavikumarimdb",
     },
     {
       id: "2",
       title: "link",
-      iconUrl: "./src/assets/socials/link.svg",
+      iconUrl: link,
       url: "https://www.linkedin.com/in/pallavisprofile/",
     },
     {
       id: "3",
       title: "twitter",
-      iconUrl: "./src/assets/socials/twitter.svg",
+      iconUrl: twitter,
       url: "https://x.com/pallavimdb",
     },
   ];
