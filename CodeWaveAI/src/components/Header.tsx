@@ -1,4 +1,4 @@
-import React from 'react'
+// import React from 'react'
 // useLocation hook returns the location object used by the react-router.
 import { useLocation } from 'react-router-dom'
 // programmatically disable and enable scrolling on a webpage

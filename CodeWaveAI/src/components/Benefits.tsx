@@ -1,4 +1,4 @@
-import React from 'react'
+// import React from 'react'
 import Section from './Section'
 import Heading from './Heading'
 import ClipPath from "../assets/svg/ClipPath.tsx";
