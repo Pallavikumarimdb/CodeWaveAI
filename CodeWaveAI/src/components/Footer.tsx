@@ -46,7 +46,7 @@ export default Footer;
       id: "2",
       title: "link",
       iconUrl: "./src/assets/socials/link.svg",
-      url: "c:\Users\Pallavi\AppData\Local\Temp\linkedin3.svg",
+      url: "https://www.linkedin.com/in/pallavisprofile/",
     },
     {
       id: "3",
