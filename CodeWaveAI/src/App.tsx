@@ -1,27 +1,21 @@
 import './App.css'
-import Header from "./components/Header.tsx";
-import Hero from './components/Hero.tsx';
-import Benefits from "./components/Benefits.tsx";
-import Section from './components/Section'
-import Collaboration from './components/Collaboration.tsx';
-import Services from './components/Services.tsx';
-import Pricing from './components/Pricing.tsx';
-import Footer from './components/Footer.tsx';
+import Landing from './page/Landing.tsx';
+import Home from './page/Home.tsx';
+import { Signup } from './page/Signup.tsx';
+import { Signin } from './page/Signin.tsx';
+import { BrowserRouter, Routes, Route } from "react-router-dom"
+
+
 function App() {
   return (
-    <>
-    <div className="pt-[4.75rem] lg:pt-[5.25rem] overflow-hidden">
-    <Section>
-    <Header />
-    <Hero />
-    <Benefits />
-    <Collaboration/>
-    <Services />
-    <Pricing/>
-    <Footer/>
-    </Section>
-    </div>
-    </>
+    <BrowserRouter>
+    <Routes>
+      <Route path="/" element={<Landing />} />
+      <Route path="/Home" element={<Home />} />
+      <Route path="/register" element={<Signup />} />
+      <Route path="/login" element={<Signin />} />
+    </Routes>
+  </BrowserRouter>
   )
 }
 

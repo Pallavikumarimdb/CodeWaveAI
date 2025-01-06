@@ -1,6 +1,6 @@
 // import React from 'react'
 // useLocation hook returns the location object used by the react-router.
-import { useLocation } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 // programmatically disable and enable scrolling on a webpage
 import { disablePageScroll, enablePageScroll } from "scroll-lock";
 
@@ -70,6 +70,7 @@ function Header(): JSX.Element {
   }
 
 
+
   return (
     <div className={`fixed top-0 w-full z-50 border-b border-n-6 border-slate-600 lg:bg-n-8/90 lg:backdrop-blur-sm ${openNavigation ? "bg-n-8" : "bg-n-8/90 backdrop-blur-sm"}`}>
       <div className="flex  item-center pt-4 pb-4 px-5 lg:px-7.5 xl:px-10 max-lg:py-4">
@@ -102,15 +103,18 @@ function Header(): JSX.Element {
           <HamburgerMenu />
         </nav>
 
-
-        <a href="#signup" className="button hidden mt-4 text-n-1/50 transition-colors hover:text-n-1 lg:block">
+        <Link to="/register" className="">
+        <a href="#signup" className="button hidden  text-n-1/50 transition-colors hover:text-n-1 lg:block">
           New account
         </a>
+        </Link>
+        <Link to="/login" className="">
         <button className="relative h-11 w-[120px]  hidden lg:flex items-center justify-center p-0.5 me-2 ml-8 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group button-css hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800">
         <span className="relative px-5  py-2.5 transition-all ease-in duration-75 rounded-md group-hover:bg-opacity-0">
             Sign in
           </span>
         </button>
+        </Link>
 
         <button onClick={toggleNavigation} className="relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-pink-500 to-orange-400 group-hover:from-pink-500 group-hover:to-orange-400 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800 ml-auto lg:hidden">
           <span className="relative px-5 py-2.5 transition-all ease-in duration-75 bg-transparent rounded-md group-hover:bg-opacity-0">
