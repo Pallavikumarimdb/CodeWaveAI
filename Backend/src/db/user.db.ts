@@ -44,5 +44,19 @@ const projectSchema = new mongoose.Schema({
 })
 
 
+
+const chatRoomSchema = new mongoose.Schema({
+  projectId: { type: mongoose.Schema.Types.ObjectId, ref: 'Project', unique: true },
+  messages: [
+    {
+      sender: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+      content: String,
+      timestamp: { type: Date, default: Date.now },
+    },
+  ],
+  lastUpdated: { type: Date, default: Date.now },
+});
+
+export const ChatRoom = mongoose.model('ChatRoom', chatRoomSchema);
 export const UserModel=model("User", UserSchema);
 export const ProjectModel = model('Project', projectSchema)

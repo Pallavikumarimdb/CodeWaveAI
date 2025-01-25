@@ -40,27 +40,33 @@ router.post("/api/v1/signin", async (req, res) => {
     const UserExist = await UserModel.findOne({
         username,
         password
-    })
+    });
 
     if (!process.env.JWT_SECRET) {
         throw new Error('JWT_SECRET environment variable is not set');
     }
 
     if (UserExist) {
-        const token = jwt.sign({
-            id: UserExist._id,
-        }, process.env.JWT_SECRET)
+        const token = jwt.sign(
+            {
+                id: UserExist._id,
+            },
+            process.env.JWT_SECRET
+        );
 
         res.json({
-            token: token
-        })
+            token: token,
+            UserExist: {
+                _id: UserExist._id,
+                username: UserExist.username
+            },
+        });
     } else {
         res.status(404).json({
-            message: "User not found"
-        })
+            message: "User not found",
+        });
     }
-})
-
+});
 
 //@ts-ignore
 router.get("/api/auth/verify-token", (req, res) => {

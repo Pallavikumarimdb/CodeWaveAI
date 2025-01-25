@@ -7,7 +7,7 @@ export default function Home() {
 
     const [ismodelOpen, setIsModelOpen] = useState(false);
     const [projectName, setProjectName] = useState("")
-    const [project, setProject] = useState([])
+    const [projects, setProjects] = useState<{ _id: string, name: string, users: { length: number }[] }[]>([])
 
     const navigate = useNavigate();
 
@@ -46,7 +46,7 @@ export default function Home() {
             });
 
             console.log(response);
-            setProject(response.data.projects);
+            setProjects(response.data.projects);
         } catch (error) {
             console.error("Can't find Projects", error);
             alert("Can't find Projects");
@@ -85,11 +85,11 @@ export default function Home() {
 
             <div className='max-w-96 m-auto'>
             {
-                project.map((project) => (
+                projects.map((project: { _id: string, name: string, users: { length: number }[] }) => (
                         //@ts-ignore
                     <div key={project._id}
                         onClick={() => {
-                            navigate(`/project`, {
+                            navigate(`/chat/${project._id}`, {
                                 state: { project }
                             })
                         }}
@@ -98,11 +98,11 @@ export default function Home() {
                             className='font-semibold'
                                 //@ts-ignore
                         >{project.name}</h2>
-{/* 
+
                         <div className="flex gap-2">
                             <p> <small> <i className="ri-user-line"></i> Collaborators</small> :</p>
                             {project.users.length}
-                        </div> */}
+                        </div>
 
                     </div>
                 ))

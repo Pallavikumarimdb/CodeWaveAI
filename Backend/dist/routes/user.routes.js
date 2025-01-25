@@ -52,12 +52,16 @@ router.post("/api/v1/signin", (req, res) => __awaiter(void 0, void 0, void 0, fu
             id: UserExist._id,
         }, process.env.JWT_SECRET);
         res.json({
-            token: token
+            token: token,
+            UserExist: {
+                _id: UserExist._id,
+                username: UserExist.username
+            },
         });
     }
     else {
         res.status(404).json({
-            message: "User not found"
+            message: "User not found",
         });
     }
 }));

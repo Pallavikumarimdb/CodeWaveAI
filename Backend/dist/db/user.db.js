@@ -33,7 +33,7 @@ var __importStar = (this && this.__importStar) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ProjectModel = exports.UserModel = void 0;
+exports.ProjectModel = exports.UserModel = exports.ChatRoom = void 0;
 require("dotenv/config");
 const mongoose_1 = __importStar(require("mongoose"));
 console.log('Environment Variables:', process.env.Mongo_DB);
@@ -65,5 +65,17 @@ const projectSchema = new mongoose_1.default.Schema({
         default: {}
     },
 });
+const chatRoomSchema = new mongoose_1.default.Schema({
+    projectId: { type: mongoose_1.default.Schema.Types.ObjectId, ref: 'Project', unique: true },
+    messages: [
+        {
+            sender: { type: mongoose_1.default.Schema.Types.ObjectId, ref: 'User' },
+            content: String,
+            timestamp: { type: Date, default: Date.now },
+        },
+    ],
+    lastUpdated: { type: Date, default: Date.now },
+});
+exports.ChatRoom = mongoose_1.default.model('ChatRoom', chatRoomSchema);
 exports.UserModel = (0, mongoose_1.model)("User", UserSchema);
 exports.ProjectModel = (0, mongoose_1.model)('Project', projectSchema);

@@ -1,9 +1,8 @@
-import { useRef } from "react";
+import { useRef, useContext  } from "react";
 import.meta.env.BACKEND_URL;
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
-
-
+import { useUserContext } from "../context/user.context";
 
 // interface SignInProps {
 //     onSignIn: () => void; // Callback to update authentication state
@@ -14,6 +13,9 @@ export function Signin () {
     const passwordRef = useRef<HTMLInputElement | null>(null); 
     const navigate = useNavigate();
 
+    
+    const { setUser } = useUserContext();
+
     async function signin() {
         const username = usernameRef.current?.value;
         const password = passwordRef.current?.value;
@@ -22,14 +24,18 @@ export function Signin () {
                 username,
                 password
             })
-            const token = response.data.token;
-             if (token) {
-        localStorage.setItem("token", token); 
-        navigate("/Home"); 
-      }
-    } catch (error) {
-      console.error("Sign-in failed:", error);
-    }
+            const { token, UserExist } = response.data; // Extract token and user data
+
+            if (token) {
+                localStorage.setItem("token", token); // Save token to localStorage
+                console.log("User ID:", UserExist._id); // Log the user ID for debugging
+                localStorage.setItem("User", UserExist.username);
+                setUser(UserExist); // Set the user data in context
+                navigate("/Home"); // Navigate to the Home page
+            }
+        } catch (error) {
+            console.error("Sign-in failed:", error);
+        }
     }
     return <div className="h-screen w-screen bg-n-8 flex justify-between px-[15%] items-center">
         <div className=" text-center rounded-xl border min-w-48 p-8">

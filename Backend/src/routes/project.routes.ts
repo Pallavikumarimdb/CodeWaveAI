@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import {authMiddleware} from "../middleware/auth"
-import { ProjectModel, UserModel } from '../db/user.db';
+import { ProjectModel, UserModel, ChatRoom } from '../db/user.db';
+const io = require('socket.io'); 
 
 const router = Router();
 
@@ -142,6 +143,79 @@ router.get('/get-project/:projectId',authMiddleware, async(req, res)=>{
 
     
 })
+
+// @ts-ignore
+router.post('/send-message', async (req, res) => {
+    const { messageContent, sender, projectId } = req.body;
+  
+    if (!messageContent || !sender || !projectId) {
+      return res.status(400).json({ message: 'Missing required fields' });
+    }
+  
+    try {
+      // Check if a chat room for this project exists
+      let chatRoom = await ChatRoom.findOne({ projectId });
+  
+      if (!chatRoom) {
+        // If no chat room exists, create a new one
+        chatRoom = new ChatRoom({
+          projectId,
+          messages: [
+            {
+              sender,
+              content: messageContent,
+            },
+          ],
+        });
+      } else {
+        // If chat room exists, update it by adding the new message
+        chatRoom.messages.push({
+          sender,
+          content: messageContent,
+        });
+      }
+  
+      // Update the lastUpdated timestamp
+      chatRoom.lastUpdated = new Date();
+  
+      await chatRoom.save(); // Save the updated or new chat room
+  
+      // Emit the new message to all connected clients
+    //   io.emit('project-message', {
+    //     message: messageContent,
+    //     sender,
+    //     projectId,
+    //   });
+  
+      res.status(200).json({ message: 'Message sent successfully', chatRoom });
+    } catch (error) {
+      console.error('Error saving message:', error);
+      res.status(500).json({ message: 'Error saving message' });
+    }
+  });
+
+
+
+
+// @ts-ignore
+// routes/projects.js (or routes/messages.js)
+router.get('/messages:projectId', async (req, res) => {
+    const { projectId } = req.query;
+  
+    try {
+      const chatRoom = await ChatRoom.findOne({ projectId }).populate('messages.sender');
+      if (!chatRoom) {
+        return res.status(404).json({ message: 'Chat room not found' });
+      }
+      res.status(200).json({ chatRoom });
+    } catch (error) {
+      console.error('Error fetching messages:', error);
+      res.status(500).json({ message: 'Error fetching messages' });
+    }
+  });
+
+
+
 
 router.put('/update-file-tree',authMiddleware, async(req, res)=>{
     
