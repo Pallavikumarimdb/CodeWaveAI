@@ -23,6 +23,17 @@ const mongoose_1 = __importDefault(require("mongoose"));
 const user_db_js_1 = require("./db/user.db.js");
 const project_routes_js_1 = __importDefault(require("./routes/project.routes.js"));
 const app = (0, express_1.default)();
+const httpServer = http_1.default.createServer(app);
+const io = new socket_io_1.Server(httpServer, {
+    cors: {
+        origin: '*',
+        methods: ['GET', 'POST'],
+    }
+});
+// io.on('connection', (socket) => {
+//   console.log('socket connected');
+// });
+// const app = express();
 app.use((0, cors_1.default)());
 app.use(express_1.default.json());
 app.use(express_1.default.urlencoded({ extended: true }));
@@ -31,67 +42,84 @@ app.use('/projects', project_routes_js_1.default);
 app.get('/', (req, res) => {
     res.send('Hello World!');
 });
-const server = http_1.default.createServer(app);
-const io = new socket_io_1.Server(server, {
-    cors: {
-        origin: '*'
-    }
-});
+// Middleware to authenticate and handle queries
 io.use((socket, next) => __awaiter(void 0, void 0, void 0, function* () {
-    var _a, _b;
+    var _a;
     try {
-        const token = ((_a = socket.handshake.auth) === null || _a === void 0 ? void 0 : _a.token) || ((_b = socket.handshake.headers.authorization) === null || _b === void 0 ? void 0 : _b.split(' ')[1]);
+        // Extract auth token and projectId from handshake data
+        const token = (_a = socket.handshake.auth) === null || _a === void 0 ? void 0 : _a.token;
         const projectId = socket.handshake.query.projectId;
-        //@ts-ignore
-        if (!mongoose_1.default.Types.ObjectId.isValid(projectId)) {
-            return next(new Error('Invalid projectId'));
+        // Validate projectId
+        if (!projectId || !mongoose_1.default.Types.ObjectId.isValid(projectId)) {
+            return next(new Error('Invalid or missing projectId'));
         }
-        //@ts-ignore
-        socket.Project = yield user_db_js_1.ProjectModel.findById(projectId);
+        // Retrieve project details from the database
+        const project = yield user_db_js_1.ProjectModel.findById(projectId);
+        if (!project) {
+            return next(new Error('Project not found'));
+        }
+        // Ensure token exists
         if (!token) {
-            return next(new Error('Authentication error'));
+            return next(new Error('Authentication token is missing'));
         }
-        //@ts-ignore
+        if (!process.env.JWT_SECRET) {
+            return next(new Error('JWT_SECRET is not defined'));
+        }
+        // Verify the JWT token
         const decoded = jsonwebtoken_1.default.verify(token, process.env.JWT_SECRET);
         if (!decoded) {
-            return next(new Error('Authentication error'));
+            return next(new Error('Invalid token'));
         }
-        //@ts-ignore
-        socket.User = decoded;
+        // Attach project and user details to the socket
+        socket.data.project = project;
+        socket.data.user = decoded;
+        // Proceed to the connection handler
         next();
     }
     catch (error) {
-        //@ts-ignore
-        next(error);
+        console.error('Socket authentication error:', error);
+        next(new Error('Authentication failed'));
     }
 }));
-io.on('connection', socket => {
-    //@ts-ignore
-    socket.roomId = socket.Project._id.toString();
-    console.log('a user connected');
-    //@ts-ignore
-    socket.join(socket.roomId);
+// Handle socket connection
+io.on('connection', (socket) => {
+    console.log('User connected:', socket.data.user);
+    // Join the room corresponding to the project ID
+    const roomId = socket.data.project._id.toString();
+    socket.join(roomId);
+    console.log(`User joined room: ${roomId}`);
+    // Listen for messages
     socket.on('project-message', (data) => __awaiter(void 0, void 0, void 0, function* () {
-        const message = data.message;
-        const aiIsPresentInMessage = message.includes('@ai');
-        //@ts-ignore
-        socket.broadcast.to(socket.roomId).emit('project-message', data);
-        // if (aiIsPresentInMessage) {
-        //     const prompt = message.replace('@ai', '');
-        //     const result = await generateResult(prompt);
-        //     io.to(socket.roomId).emit('project-message', {
-        //         message: result,
-        //         sender: {
-        //             _id: 'ai',
-        //             email: 'AI'
-        //         }
-        //     })
-        //     return
-        // }
+        try {
+            const { message } = data;
+            console.log(`Received message in room ${roomId}:`, message);
+            // Broadcast message to others in the room
+            socket.broadcast.to(roomId).emit('project-message', data);
+            // Check for AI mention
+            // if (message.includes('@ai')) {
+            //     const prompt = message.replace('@ai', '').trim();
+            //     const aiResponse = await generateResult(prompt); // Your AI generation function
+            //     // Emit AI response to the same room
+            //     io.to(roomId).emit('project-message', {
+            //         message: aiResponse,
+            //         sender: {
+            //             _id: 'ai',
+            //             email: 'AI',
+            //         },
+            //     });
+            // }
+        }
+        catch (error) {
+            console.error('Error handling project-message:', error);
+        }
     }));
-    //     socket.on('disconnect', () => {
-    //         console.log('user disconnected');
-    //         socket.leave(socket.roomId)
-    //     });
+    // Handle disconnection
+    socket.on('disconnect', () => {
+        console.log(`User disconnected from room: ${roomId}`);
+        socket.leave(roomId);
+    });
 });
-app.listen(3000);
+httpServer.listen(3000, () => {
+    console.log('server started');
+});
+// app.listen(3000);

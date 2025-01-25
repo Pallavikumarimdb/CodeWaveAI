@@ -1,4 +1,4 @@
-import { useRef, useContext  } from "react";
+import { useRef  } from "react";
 import.meta.env.BACKEND_URL;
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
@@ -13,8 +13,6 @@ export function Signin () {
     const passwordRef = useRef<HTMLInputElement | null>(null); 
     const navigate = useNavigate();
 
-    
-    const { setUser } = useUserContext();
 
     async function signin() {
         const username = usernameRef.current?.value;
@@ -24,13 +22,10 @@ export function Signin () {
                 username,
                 password
             })
-            const { token, UserExist } = response.data; // Extract token and user data
+            const { token } = response.data; // Extract token and user data
 
             if (token) {
                 localStorage.setItem("token", token); // Save token to localStorage
-                console.log("User ID:", UserExist._id); // Log the user ID for debugging
-                localStorage.setItem("User", UserExist.username);
-                setUser(UserExist); // Set the user data in context
                 navigate("/Home"); // Navigate to the Home page
             }
         } catch (error) {
