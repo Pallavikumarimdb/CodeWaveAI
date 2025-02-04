@@ -5,45 +5,43 @@ import axios from '../config/axios';
 import { io } from 'socket.io-client';
 
 interface Message {
-    sender: string; // Assuming sender is a string (user ID)
-    content: string; // The message content
+    sender: string;
+    content: string; 
 }
 
 const Chat = () => {
     const { roomId } = useParams();
     const location = useLocation();
-    const { project } = location.state; // Get project from state
-    const [messages, setMessages] = useState<Message[]>([]); // Use the Message interface for messages
+    const { project } = location.state;
+    const [messages, setMessages] = useState<Message[]>([]); 
     const [message, setMessage] = useState('');
-    const token = localStorage.getItem('token'); // Get the token from local storage
-    const socketRef = useRef<any>(null); // Create a ref to store the socket instance
-
+    const token = localStorage.getItem('token'); 
+    const socketRef = useRef<any>(null); 
     useEffect(() => {
-        // Initialize the socket connection
         socketRef.current = io('http://localhost:3000', {
             auth: {
-                token, // Token sent for authentication
+                token, 
             },
             query: {
-                projectId: project?._id, // Ensure project ID exists
+                projectId: project?._id, 
             },
         });
 
         socketRef.current.on('connect', () => {
             console.log('Connected to the project chat');
-            socketRef.current.emit('joinRoom', roomId); // Emit joinRoom event
+            socketRef.current.emit('joinRoom', roomId);
         });
 
         //@ts-ignore
         socketRef.current.on('project-message', (data) => {
             console.log('Received message:', data);
-            setMessages((prev) => [...prev, { sender: data.sender, content: data.message }]); // Append new message
+            setMessages((prev) => [...prev, { sender: data.sender, content: data.message }]);
         });
 
         return () => {
             if (socketRef.current) {
-                socketRef.current.off('project-message'); // Remove listener to avoid memory leaks
-                socketRef.current.disconnect(); // Disconnect socket
+                socketRef.current.off('project-message');
+                socketRef.current.disconnect();
             }
         };
     }, [roomId, project?._id, token]); // Dependencies include roomId, project._id, and token
@@ -54,7 +52,6 @@ const Chat = () => {
         const token = localStorage.getItem('token');
         if (message.trim()) {
             try {
-                // Send message to the backend
                 const response = await axios.post(
                     `${process.env.BACKEND_URL}/projects/send-message`,
                     {
@@ -72,10 +69,7 @@ const Chat = () => {
                 // Assuming the backend returns the updated chat room with messages
                 const updatedChatRoom = response.data.chatRoom;
 
-                // Update the state with the new messages list from the backend
                 setMessages(updatedChatRoom.messages);
-
-                // Clear the input field
                 setMessage('');
             } catch (error) {
                 //@ts-ignore
