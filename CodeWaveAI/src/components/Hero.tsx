@@ -3,7 +3,7 @@ import heroBackground from "../assets/robo1.jpeg";
 import robot from "../assets/robo1.jpeg"
 import Button from "./Button";
 import Section from "./Section.tsx";
-import { BackgroundCircles, BottomLine, Gradient } from "./design/Hero";
+import { BottomLine, Gradient } from "./design/Hero";
 // import { heroIcons } from "../constants";
 import { ScrollParallax } from "react-just-parallax";
 import { useRef } from "react";
@@ -80,7 +80,7 @@ function Hero() {
                             alt="hero"
                         />
                     </div>
-                    <BackgroundCircles />
+                    {/* <BackgroundCircles /> */}
                 </div>
             </div>
             <BottomLine />

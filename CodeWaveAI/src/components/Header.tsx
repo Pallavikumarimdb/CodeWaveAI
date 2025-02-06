@@ -104,7 +104,7 @@ function Header(): JSX.Element {
         </nav>
 
         <Link to="/register" className="">
-        <a href="#signup" className="button hidden  text-n-1/50 transition-colors hover:text-n-1 lg:block">
+        <a href="#signup" className="button hidden mt-5 text-n-1/50 transition-colors hover:text-n-1 lg:block">
           New account
         </a>
         </Link>

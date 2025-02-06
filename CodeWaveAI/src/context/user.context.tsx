@@ -22,27 +22,3 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
 };
 
 export const useUserContext = () => useContext(UserContext);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

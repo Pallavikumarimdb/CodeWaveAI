@@ -1,9 +1,8 @@
 import { Router } from 'express';
 
 import jwt from "jsonwebtoken"
-import cors from "cors"
 import 'dotenv/config'
-import { UserModel} from "../db/user.db";
+import { UserModel} from "../db/schema.db";
 import {authMiddleware} from "../middleware/auth"
 import {getAllUsers} from "../utils"
 
@@ -68,25 +67,6 @@ router.post("/api/v1/signin", async (req, res) => {
     }
 });
 
-//@ts-ignore
-router.get("/api/auth/verify-token", (req, res) => {
-    const token = req.headers.authorization;
-  
-    if (!token) {
-      return res.status(401).send("Token missing");
-    }
-
-    if (!process.env.JWT_SECRET) {
-        throw new Error('JWT_SECRET environment variable is not set');
-      }
-  
-    try {
-      const decoded = jwt.verify(token, process.env.JWT_SECRET); 
-      res.status(200).send({ message: "Token is valid" });
-    } catch (error) {
-      res.status(401).send({ message: "Invalid token" });
-    }
-  });
 
 //@ts-ignore
 router.get("/api/v1/getAllUsers", authMiddleware, async(req, res)=>{

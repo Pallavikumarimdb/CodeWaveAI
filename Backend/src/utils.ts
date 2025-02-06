@@ -1,4 +1,4 @@
-import { UserModel} from "./db/user.db";
+import { UserModel} from "./db/schema.db";
 
 
 

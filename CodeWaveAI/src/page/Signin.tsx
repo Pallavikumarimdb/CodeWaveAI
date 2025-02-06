@@ -2,11 +2,7 @@ import { useRef  } from "react";
 import.meta.env.BACKEND_URL;
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
-import { useUserContext } from "../context/user.context";
 
-// interface SignInProps {
-//     onSignIn: () => void; // Callback to update authentication state
-//   }
 
 export function Signin () {
     const usernameRef = useRef<HTMLInputElement | null>(null); 
