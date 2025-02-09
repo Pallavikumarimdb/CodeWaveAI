@@ -57,7 +57,7 @@ export default function Dashboard() {
             try {
                 const createdProject = await createProject();
                 if (createdProject) {
-                    navigate(`/builder/${createdProject._id}`, { state: { project: createdProject } });
+                    navigate(`/builder/${createdProject._id}`, { state: { project: createdProject, prompt } });
                 }
             } catch (error) {
                 alert("Error while creating the project or redirecting.");

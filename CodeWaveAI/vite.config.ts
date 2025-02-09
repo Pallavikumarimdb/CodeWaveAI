@@ -18,5 +18,11 @@ export default defineConfig({
   plugins: [react()],
   define: {
     'process.env': process.env
+  },
+  server: {
+    headers: {
+      "Cross-Origin-Embedder-Policy": "require-corp",
+      "Cross-Origin-Opener-Policy": "same-origin"
+    }
   }
 });

@@ -74,6 +74,7 @@ export default {
     },
   },
   plugins: [
+    require("tailwind-scrollbar"),
     plugin(function ({ addBase, addComponents, addUtilities }) {
       addBase({});
       addComponents({
@@ -122,9 +123,15 @@ export default {
           "@apply font-code text-xs font-bold uppercase tracking-wider": {},
         },
       });
+
+      // Scrollbar utility
       addUtilities({
-        ".tap-highlight-color": {
-          "-webkit-tap-highlight-color": "rgba(0, 0, 0, 0)",
+        ".scrollbar-hidden": {
+          "scrollbar-width": "none",
+          "-ms-overflow-style": "none",
+        },
+        ".scrollbar-hidden::-webkit-scrollbar": {
+          display: "none",
         },
       });
     }),
