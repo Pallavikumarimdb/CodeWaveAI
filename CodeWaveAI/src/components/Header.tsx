@@ -74,7 +74,7 @@ function Header(): JSX.Element {
   return (
     <div className={`fixed top-0 w-full z-50 border-b border-n-6 border-slate-600 lg:bg-n-8/90 lg:backdrop-blur-sm ${openNavigation ? "bg-n-8" : "bg-n-8/90 backdrop-blur-sm"}`}>
       <div className="flex  item-center pt-4 pb-4 px-5 lg:px-7.5 xl:px-10 max-lg:py-4">
-        <a className="block w-[13rem] xl:mr-8 text-xl font-bold" href='#'>
+        <a className="block w-[13rem] xl:mr-8 text-xl font-bold font-[cursive]" href='#'>
           <img className="rounded-full inline-block mr-[10px]" src={CodeWave} width={53} height={20} alt="CodeWaveAI" />
           CodeWaveAI
         </a>

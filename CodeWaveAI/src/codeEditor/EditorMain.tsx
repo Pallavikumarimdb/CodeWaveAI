@@ -135,7 +135,7 @@ function EditorMain({ files, selectedFile, onFileSelect, webcontainer }) {
   };
 
   return (
-    <div className="flex flex-col w-full h-full overflow-auto bg-[#1e1e1e] text-white">
+    <div className="flex flex-col w-full rounded-lg h-full overflow-auto bg-[#1e1e1e] text-white">
 
       <div className="flex items-center px-4 py-1 bg-[#333333] text-sm">
         <div className="flex space-x-4">

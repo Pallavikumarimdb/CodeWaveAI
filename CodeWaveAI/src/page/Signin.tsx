@@ -43,7 +43,7 @@ export function Signin() {
         </div>
       </div>
       <div className="flex justify-center items-center">
-            <div className="bg-[#333333] rounded-xl shadow-2xl p-8 w-full max-w-md">
+            <div className="bg-[#0E161B] rounded-xl shadow-2xl p-8 w-full max-w-md">
                 <h1 className="text-3xl font-bold text-gray-200 mb-8 text-center">Sign In</h1>
 
                 {/* Username Input */}

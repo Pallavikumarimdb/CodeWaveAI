@@ -12,6 +12,7 @@ import CodeWave from "../assets/CodeWaveAI-logo2.webp";
 import { Loader } from '../components/Loader';
 import { io } from 'socket.io-client';
 import EditorMain from '../codeEditor/EditorMain';
+import { GradientLight } from '../components/design/Benefits';
 
 
 interface ChatMessage {
@@ -40,7 +41,7 @@ export default function Builder() {
   const [selectedFile, setSelectedFile] = useState<FileItem | null>(null);
   const [files, setFiles] = useState<FileItem[]>([]);
 
-  
+
   // Get all steps from chat flow for file processing
   const allSteps = chatFlow
     .filter(msg => msg.type === 'steps')
@@ -129,7 +130,7 @@ export default function Builder() {
 
     if (updateHappened) {
       setFiles(originalFiles);
-      
+
       // Update selectedFile reference if it was modified
       if (selectedFile && updatedFilePath === selectedFile.path) {
         const updatedFile = findFileByPath(originalFiles, selectedFile.path);
@@ -143,7 +144,7 @@ export default function Builder() {
           setSelectedFile(firstFile);
         }
       }
-      
+
       setChatFlow(flow => flow.map(msg => {
         if (msg.type === 'steps') {
           return {
@@ -312,7 +313,7 @@ export default function Builder() {
     } else {
       const token = localStorage.getItem('token');
       try {
-         await axios.post(
+        await axios.post(
           `${process.env.BACKEND_URL}/projects/send-message`,
           {
             projectId: roomId,
@@ -342,18 +343,19 @@ export default function Builder() {
   console.log("Files" + selectedFile?.content + selectedFile?.path);
 
   return (
-    <div className="pb-2 bg-gray-900 flex flex-col">
-      <header className="flex h-16  justify-between items-center bg-[#0e0c15] border-b border-gray-700 px-6 py-4">
-        <div className='rounded-md border border-gray-700 bg-[#0e0c15] p-2 flex items-center justify-center'>
+    <div className="h-screen pb-2 bg-[#0E161B] flex flex-col">
+      <header className="flex h-16  justify-between items-center bg-gradient-to-r from-teal-900 to-slate-900 border-b border-gray-700 px-6 py-4">
+        <div className='rounded-md text-center border border-gray-700 p-2 flex items-center justify-center'>
           <h2 className="text-md font-light w-96 overflow-hidden font-bold rounded-md">
             {prompt || project.name}
           </h2>
         </div>
         <div>
-          <a className="block w-[13rem] xl:mr-8 text-xl font-bold" href='#'>
-            <img className="rounded-full inline-block mr-[10px]" src={CodeWave} width={32} height={20} alt="CodeWaveAI" />
+          <a className="block w-[13rem] xl:mr-8 text-xl font-bold font-[cursive]" href='#'>
+            {/* <img className="rounded-full inline-block mr-[10px]" src={CodeWave} width={32} height={20} alt="CodeWaveAI" /> */}
             CodeWaveAI
           </a>
+
         </div>
       </header>
 
@@ -364,7 +366,7 @@ export default function Builder() {
               <div className="h-[calc(100%-60px)] overflow-y-scroll scrollbar-hidden">
                 <div className="flex-1 overflow-y-auto ">
                   {chatFlow.map((msg, index) => (
-                    <div key={index} className="mb-4 bg-[#0e0c15] rounded-lg">
+                    <div key={index} className="mb-4 bg-[#171717] rounded-lg">
                       {msg.type === 'text' ? (
                         <div className="message flex flex-col p-2 bg-slate-900 w-fit rounded-md">
                           <div className="text-sm text-white">
@@ -394,7 +396,7 @@ export default function Builder() {
                       placeholder="Type @AI to chat with LLM..."
                       value={userPrompt}
                       onChange={(e) => setPrompt(e.target.value)}
-                      className='p-2 w-full bg-[#0e0c15] rounded-lg focus:outline-none focus:ring-0 text-white'
+                      className='p-2 w-full bg-[#141414] rounded-lg focus:outline-none focus:ring-0 text-white'
                     />
                     <button
                       onClick={handleSendMessage}
@@ -416,7 +418,7 @@ export default function Builder() {
             </div>
           </div>
 
-          <div className="border border-slate-700 col-span-3 bg-[#0f0f10] rounded-lg shadow-lg p-4 h-[calc(100vh-6rem)]">
+          <div className="border border-slate-700 col-span-3 bg-[#171717] rounded-lg shadow-lg p-2 h-[calc(100vh-6rem)]">
             <TabView activeTab={activeTab} onTabChange={setActiveTab} />
             <div className="h-[calc(100%-4rem)] overflow-hidden flex">
               {activeTab === 'code' ? (
@@ -425,12 +427,12 @@ export default function Builder() {
                   selectedFile={selectedFile}
                   onFileSelect={setSelectedFile}
                   //@ts-ignore
-                  webContainer={webcontainer} 
+                  webContainer={webcontainer}
                 />
               ) : (
-                <PreviewFrame 
-                 //@ts-ignore
-                webContainer={webcontainer} files={files} />
+                <PreviewFrame
+                  //@ts-ignore
+                  webContainer={webcontainer} files={files} />
               )}
             </div>
           </div>

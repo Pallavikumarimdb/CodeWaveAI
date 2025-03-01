@@ -64,13 +64,13 @@ export default function Dashboard() {
     };
 
     return (
-        <div className="min-h-screen  bg-[#0f0f10]">
+        <div className="min-h-screen  bg-[#0E161B]">
             <div className=" p-8 border-r border-gray-200">
                 <div className="flex justify-between items-center mb-8">
                     <button
                         onClick={() => setIsModalOpen(true)}
                     >
-                        <a className="block w-[13rem] xl:mr-8 text-xl font-bold" href='#'>
+                        <a className="block w-[13rem] xl:mr-8 text-xl font-bold font-[cursive]" href='#'>
                             <img className="rounded-full inline-block mr-[10px]" src={CodeWave} width={53} height={20} alt="CodeWaveAI" />
                             CodeWaveAI
                         </a>
