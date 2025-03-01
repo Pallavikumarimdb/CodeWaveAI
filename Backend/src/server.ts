@@ -7,7 +7,7 @@ import http from 'http';
 import { Server, Socket } from 'socket.io';
 import jwt from 'jsonwebtoken';
 import mongoose from 'mongoose';
-import {ProjectModel} from './db/schema.db';
+import { ProjectModel } from './db/schema.db';
 import projectRoutes from './routes/project.routes.js';
 
 const app = express();
@@ -19,21 +19,30 @@ const io = new Server(httpServer, {
     }
 });
 
-
+// Middleware
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+// CORS Preflight Handler for /auto/ai-talk
+app.options('/auto/ai-talk', (req, res) => {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+    res.send();
+});
 
+// Routes
 app.use('/users', userRoutes);
 app.use('/projects', projectRoutes);
 app.use('/auto', aiRoutes);
 
-
+// Default Route
 app.get('/', (req, res) => {
     res.send('Hello World!');
 });
 
+// Socket.io Authentication and Event Handlers
 io.use(async (socket, next) => {
     try {
         const token = socket.handshake.auth?.token;
@@ -65,7 +74,6 @@ io.use(async (socket, next) => {
     }
 });
 
-
 io.on('connection', (socket) => {
     console.log('User connected:', socket.data.user);
 
@@ -90,9 +98,7 @@ io.on('connection', (socket) => {
     });
 });
 
-
-
+// Start Server
 httpServer.listen(3000, () => {
     console.log('server started');
-  });
-  
+});
