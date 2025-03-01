@@ -8,11 +8,11 @@ import axios from 'axios';
 import.meta.env.BACKEND_URL;
 import { parseXml } from '../steps';
 import { useWebContainer } from '../hooks/useWebContainer';
-import CodeWave from "../assets/CodeWaveAI-logo2.webp";
+// import CodeWave from "../assets/CodeWaveAI-logo2.webp";
 import { Loader } from '../components/Loader';
 import { io } from 'socket.io-client';
 import EditorMain from '../codeEditor/EditorMain';
-import { GradientLight } from '../components/design/Benefits';
+// import { GradientLight } from '../components/design/Benefits';
 
 
 interface ChatMessage {
