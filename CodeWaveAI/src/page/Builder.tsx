@@ -1,9 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { useLocation, useParams } from 'react-router-dom';
 import { StepsList } from '../components/StepsList';
-import { FileExplorer } from '../components/FileExplorer';
 import { TabView } from '../components/TabView';
-import { CodeEditor } from '../components/CodeEditor';
 import { PreviewFrame } from '../components/PreviewFrame';
 import { Step, FileItem, StepType } from '../types';
 import axios from 'axios';
@@ -13,6 +11,8 @@ import { useWebContainer } from '../hooks/useWebContainer';
 import CodeWave from "../assets/CodeWaveAI-logo2.webp";
 import { Loader } from '../components/Loader';
 import { io } from 'socket.io-client';
+import EditorMain from '../codeEditor/EditorMain';
+
 
 interface ChatMessage {
   type: 'text' | 'steps';
@@ -40,12 +40,13 @@ export default function Builder() {
   const [selectedFile, setSelectedFile] = useState<FileItem | null>(null);
   const [files, setFiles] = useState<FileItem[]>([]);
 
+  
   // Get all steps from chat flow for file processing
   const allSteps = chatFlow
     .filter(msg => msg.type === 'steps')
     .flatMap(msg => msg.steps || []);
 
-  // Socket connection setup
+
   useEffect(() => {
     const token = localStorage.getItem('token');
     socketRef.current = io('http://localhost:3000', {
@@ -80,6 +81,7 @@ export default function Builder() {
   useEffect(() => {
     let originalFiles = [...files];
     let updateHappened = false;
+    let updatedFilePath = null; // Track which file was updated
 
     allSteps.filter(({ status }) => status === "pending").forEach(step => {
       updateHappened = true;
@@ -103,8 +105,10 @@ export default function Builder() {
                 path: currentFolder,
                 content: step.code
               });
+              updatedFilePath = currentFolder; // Track newly created file
             } else {
               file.content = step.code;
+              updatedFilePath = currentFolder; // Track updated file
             }
           } else {
             let folder = currentFileStructure.find(x => x.path === currentFolder);
@@ -125,6 +129,21 @@ export default function Builder() {
 
     if (updateHappened) {
       setFiles(originalFiles);
+      
+      // Update selectedFile reference if it was modified
+      if (selectedFile && updatedFilePath === selectedFile.path) {
+        const updatedFile = findFileByPath(originalFiles, selectedFile.path);
+        if (updatedFile) {
+          setSelectedFile(updatedFile);
+        }
+      } else if (updatedFilePath && !selectedFile) {
+        // Auto-select the first file if nothing is selected yet
+        const firstFile = findFileByPath(originalFiles, updatedFilePath);
+        if (firstFile) {
+          setSelectedFile(firstFile);
+        }
+      }
+      
       setChatFlow(flow => flow.map(msg => {
         if (msg.type === 'steps') {
           return {
@@ -138,7 +157,21 @@ export default function Builder() {
         return msg;
       }));
     }
-  }, [chatFlow, files]);
+  }, [chatFlow, files, selectedFile]);
+
+  // Helper function to find a file by path in the file structure
+  const findFileByPath = (files: FileItem[], path: string): FileItem | null => {
+    for (const file of files) {
+      if (file.path === path) {
+        return file;
+      }
+      if (file.type === 'folder' && file.children) {
+        const found = findFileByPath(file.children, path);
+        if (found) return found;
+      }
+    }
+    return null;
+  };
 
   // WebContainer mount effect
   useEffect(() => {
@@ -151,8 +184,7 @@ export default function Builder() {
             directory: file.children ?
               Object.fromEntries(
                 file.children.map(child => [child.name, processFile(child, false)])
-              )
-              : {}
+              ) : {}
           };
         } else if (file.type === 'file') {
           if (isRootFolder) {
@@ -176,7 +208,7 @@ export default function Builder() {
     webcontainer?.mount(mountStructure);
   }, [files, webcontainer]);
 
-  // Initial setup
+
   async function init() {
     const response = await axios.post(`${process.env.BACKEND_URL}/auto/template`, {
       prompt: prompt.trim()
@@ -187,10 +219,9 @@ export default function Builder() {
 
     const initialSteps = parseXml(uiPrompts[0]).map((x: Step) => ({
       ...x,
-      status: "pending"
+      status: "pending" as "pending"
     }));
 
-    // Add initial template steps to chat flow
     setChatFlow([{
       type: 'steps',
       sender: 'system',
@@ -214,7 +245,6 @@ export default function Builder() {
       status: "pending" as "pending"
     }));
 
-    // Add AI response steps to chat flow
     setChatFlow(prev => [...prev, {
       type: 'steps',
       sender: 'ai',
@@ -244,7 +274,6 @@ export default function Builder() {
     const timestamp = Date.now();
 
     if (userPrompt.startsWith('@AI')) {
-      // Add user's AI prompt to chat flow
       setChatFlow(prev => [...prev, {
         type: 'text',
         sender: 'user',
@@ -273,7 +302,6 @@ export default function Builder() {
         status: "pending" as "pending"
       }));
 
-      // Add AI response steps to chat flow
       setChatFlow(prev => [...prev, {
         type: 'steps',
         sender: 'ai',
@@ -282,10 +310,9 @@ export default function Builder() {
         steps: newSteps
       }]);
     } else {
-      // Handle regular chat message
       const token = localStorage.getItem('token');
       try {
-        const response = await axios.post(
+         await axios.post(
           `${process.env.BACKEND_URL}/projects/send-message`,
           {
             projectId: roomId,
@@ -299,7 +326,6 @@ export default function Builder() {
           }
         );
 
-        // Add regular chat message to chat flow
         setChatFlow(prev => [...prev, {
           type: 'text',
           sender: '67948879191ff1a65bb7f492',
@@ -312,6 +338,8 @@ export default function Builder() {
     }
     setPrompt("");
   };
+
+  console.log("Files" + selectedFile?.content + selectedFile?.path);
 
   return (
     <div className="pb-2 bg-gray-900 flex flex-col">
@@ -388,20 +416,21 @@ export default function Builder() {
             </div>
           </div>
 
-          <div className="rounded-lg border border-slate-700 col-span-1">
-            <FileExplorer
-              files={files}
-              onFileSelect={setSelectedFile}
-            />
-          </div>
-
-          <div className="border border-slate-700 col-span-2 bg-[#0f0f10] rounded-lg shadow-lg p-4 h-[calc(100vh-6rem)]">
+          <div className="border border-slate-700 col-span-3 bg-[#0f0f10] rounded-lg shadow-lg p-4 h-[calc(100vh-6rem)]">
             <TabView activeTab={activeTab} onTabChange={setActiveTab} />
-            <div className="h-[calc(100%-4rem)]">
+            <div className="h-[calc(100%-4rem)] overflow-hidden flex">
               {activeTab === 'code' ? (
-                <CodeEditor file={selectedFile} />
+                <EditorMain
+                  files={files}
+                  selectedFile={selectedFile}
+                  onFileSelect={setSelectedFile}
+                  //@ts-ignore
+                  webContainer={webcontainer} 
+                />
               ) : (
-                <PreviewFrame webContainer={webcontainer} files={files} />
+                <PreviewFrame 
+                 //@ts-ignore
+                webContainer={webcontainer} files={files} />
               )}
             </div>
           </div>

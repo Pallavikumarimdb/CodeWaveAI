@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import CodeWave from "../assets/CodeWaveAI-logo2.webp";
 import { useNavigate } from "react-router-dom";
-import { Folder, Plus, Users, X, Wand2, ArrowUp, Camera, Package, Figma, Dribbble, Wand } from "lucide-react";
+import { Folder, Users, X, ArrowUp, Camera, Package, Figma, Dribbble } from "lucide-react";
 import Button from "../components/Button";
 import.meta.env.BACKEND_URL;
 
@@ -26,14 +26,13 @@ export default function Dashboard() {
             setIsModalOpen(false);
             alert("Project created successfully");
             refresh();
-            return response.data; // Assuming response contains the created project
+            return response.data;
         } catch (error) {
             alert("Can't create Project");
             return null;
         }
     }
 
-    // Fetch Projects
     async function refresh() {
         try {
             const response = await axios.get(`${process.env.BACKEND_URL}/projects/all`, {
@@ -49,7 +48,6 @@ export default function Dashboard() {
         refresh();
     }, []);
 
-    // Handle AI Prompt Form
     const handlePromptSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
@@ -67,7 +65,6 @@ export default function Dashboard() {
 
     return (
         <div className="min-h-screen  bg-[#0f0f10]">
-            {/* Left: Projects List */}
             <div className=" p-8 border-r border-gray-200">
                 <div className="flex justify-between items-center mb-8">
                     <button
@@ -85,7 +82,6 @@ export default function Dashboard() {
                     </Button>
                 </div>
 
-                {/* Right: AI Prompt Section */}
                 <div className="m-auto w-[50%] p-8">
                     <div className="text-center mb-8">
                         <div className="inline-block mb-20   px-4 py-1 border border-slate-700  rounded-full text-white text-sm font-medium">

@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { FolderTree, File, ChevronRight, ChevronDown } from 'lucide-react';
-import { FileItem } from '../types';
+import { FolderTree, ChevronRight, ChevronDown, FileText, Folder } from 'lucide-react';
+import { FileItem } from '../../types';
 
 interface FileExplorerProps {
   files: FileItem[];
@@ -11,9 +11,10 @@ interface FileNodeProps {
   item: FileItem;
   depth: number;
   onFileClick: (file: FileItem) => void;
+  selectedPath: string | null;
 }
 
-function FileNode({ item, depth, onFileClick }: FileNodeProps) {
+function FileNode({ item, depth, onFileClick, selectedPath }: FileNodeProps) {
   const [isExpanded, setIsExpanded] = useState(false);
 
   const handleClick = () => {
@@ -27,7 +28,9 @@ function FileNode({ item, depth, onFileClick }: FileNodeProps) {
   return (
     <div className="text-xs font-thin select-none">
       <div
-        className="flex items-center gap-1 p-1 hover:bg-gray-800 rounded-md cursor-pointer"
+        className={`flex items-center gap-1 p-1 rounded-md cursor-pointer ${
+          item.path === selectedPath ? 'bg-[#2a2d2e]' : 'hover:bg-[#2a2d2e]'
+        }`}
         style={{ paddingLeft: `${depth * 1.5}rem` }}
         onClick={handleClick}
       >
@@ -41,9 +44,9 @@ function FileNode({ item, depth, onFileClick }: FileNodeProps) {
           </span>
         )}
         {item.type === 'folder' ? (
-          <FolderTree className="w-2 h-2 text-blue-400" />
+         <Folder size={16} className="mr-1 text-[#e8ab53]" />
         ) : (
-          <File className="w-4 h-4 text-gray-400" />
+          <FileText className="w-4 h-4 text-gray-400" />
         )}
         <span className="text-gray-200">{item.name}</span>
       </div>
@@ -55,6 +58,7 @@ function FileNode({ item, depth, onFileClick }: FileNodeProps) {
               item={child}
               depth={depth + 1}
               onFileClick={onFileClick}
+              selectedPath={selectedPath}
             />
           ))}
         </div>
@@ -64,10 +68,17 @@ function FileNode({ item, depth, onFileClick }: FileNodeProps) {
 }
 
 export function FileExplorer({ files, onFileSelect }: FileExplorerProps) {
+  const [selectedPath, setSelectedPath] = useState<string | null>(null);
+
+  const handleFileClick = (file: FileItem) => {
+    setSelectedPath(file.path);
+    onFileSelect(file);
+  };
+
   return (
-    <div className="bg-[#0f0f10] rounded-lg shadow-lg p-4 h-full overflow-auto">
+    <div className=" rounded-lg shadow-lg p-4 h-full overflow-auto">
       <h2 className="text-xs font-thin mb-4 flex items-center gap-2 text-gray-100">
-        <FolderTree className="w-5 h-5" />
+        <FolderTree className="w-5 h-5 mr-1 text-[#e8ab53]" />
         File Explorer
       </h2>
       <div className="space-y-1">
@@ -76,7 +87,8 @@ export function FileExplorer({ files, onFileSelect }: FileExplorerProps) {
             key={`${file.path}-${index}`}
             item={file}
             depth={0}
-            onFileClick={onFileSelect}
+            onFileClick={handleFileClick}
+            selectedPath={selectedPath}
           />
         ))}
       </div>

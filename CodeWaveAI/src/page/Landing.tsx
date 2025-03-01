@@ -19,8 +19,6 @@ export default function Landing() {
     <Pricing/>
     <Footer/>
     </Section>
-
-
     </div>
   )
 }
