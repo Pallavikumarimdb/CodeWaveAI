@@ -1,10 +1,6 @@
 // UserContext.tsx
 import { createContext, useContext, useState, ReactNode } from 'react';
 
-interface User {
-    _id: string;
-    username: string;
-}
 
 const UserContext = createContext<{ }>({
     user: null,
