@@ -6,7 +6,7 @@ import Button from "./Button";
 
 const Pricing = () => {
   return (
-    <Section className=""  crosses>
+    <Section className="" id="pricing" crosses>
       <div className="container relative z-2">
         <div className="hidden relative justify-center mb-[6.5rem] lg:flex">
           <img
@@ -31,13 +31,13 @@ const Pricing = () => {
           title="Pay once, use forever"
         />
          <div className="text-center">
-         <Button href="/pricing" white >Try now !!! </Button>
+         <Button href="/login" white >Try now !!! </Button>
          </div>
 
         <div className="flex justify-center mt-10">
           <a
             className="text-xs font-code font-bold tracking-wider uppercase border-b"
-            href="/pricing"
+            href="#"
           >
             See the full details
           </a>

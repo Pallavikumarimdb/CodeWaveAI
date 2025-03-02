@@ -16,7 +16,7 @@ import prisma from "../assets/prisma.webp";
 const Collaboration = () => {
   return (
     <div className="">
-    <Section crosses>
+    <Section crosses id="roadmap">
       <div className="container md:flex py-24 md:py-2 lg:py-10 xl:py-20">
         <div className="max-w-[25rem] ">
           <h2 className="h2 mb-4 md:mb-8">
@@ -35,7 +35,7 @@ const Collaboration = () => {
               </li>
             ))}
           </ul>
-          <Button href="/pricing" white>Try now !!! </Button>
+          <Button href="/login" white>Try now !!! </Button>
         </div>
         <div className="lg:ml-auto xl:w-[38rem] mt-4">
           <p className="body-2 mb-8 text-n-4 md:mb-16 lg:mb-32 lg:w-[22rem] lg:mx-auto">

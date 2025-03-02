@@ -1,6 +1,8 @@
 // import curve from "../assets/curve.png";
 import heroBackground from "../assets/robo1.jpeg";
-import robot from "../assets/robo1.jpeg"
+// import robot from "../assets/robo1.jpeg"
+import img from "../assets/web7.png";
+import service11 from "../assets/home.png";
 import Button from "./Button";
 import Section from "./Section.tsx";
 import { BottomLine, Gradient } from "./design/Hero";
@@ -20,7 +22,7 @@ function Hero() {
             customPaddings
             id="hero"
         >
-            
+
             <div className="container relative pt-10" ref={parallaxRef}>
                 <div className="relative z-1 max-w-[62rem] mx-auto text-center mb-[3.875rem] md:mb-20 lg:mb-[6.25rem]">
                     <h1 className="h1 mb-6">
@@ -40,34 +42,35 @@ function Hero() {
                         Unleash the power of AI within CodeWaveAI. Upgrade your productivity
                         with CodeWaveAI, the open AI Dev Tool.
                     </p>
-                    <Button href="/pricing" white>
-                       Code Editor
+                    <Button href="/login" white>
+                        Code Editor
                     </Button>
-                    <button className="relative ml-10 mt-2  inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-pink-500 to-orange-400 group-hover:from-pink-500 group-hover:to-orange-400 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800">
+                    {/* <button className="relative ml-10 mt-2  inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-pink-500 to-orange-400 group-hover:from-pink-500 group-hover:to-orange-400 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800">
                         <span className="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900  rounded-md group-hover:bg-opacity-0">
                         Generat.it
                         </span>
-                    </button>
+                    </button> */}
                 </div>
                 <div className="relative max-w-[23rem] mx-auto md:max-w-5xl xl:mb-24">
-                    
+
                     <div className="relative z-1 p-0.5 rounded-2xl bg-conic-gradient">
                         <div className="relative bg-n-8 rounded-[1rem]">
                             <div className="h-[1.4rem] bg-n-10 rounded-t-[0.9rem]" />
 
-                            <div className="aspect-[33/40] rounded-b-[0.9rem] overflow-hidden md:aspect-[688/490] lg:aspect-[1024/500]">
+                            <div className="relative aspect-[33/40] rounded-b-[0.9rem] overflow-hidden md:aspect-[688/490] lg:aspect-[1024/500]">
                                 <img
-                                    src={robot}
-                                    className="w-full scale-[1.7] translate-y-[8%] md:scale-[1] md:-translate-y-[10%] lg:-translate-y-[23%]"
+                                    src={img}
+                                    className="w-full h-full object-cover"
                                     width={1024}
-                                    height={490}
+                                    height={890}
                                     alt="AI"
                                 />
 
-                                <ScrollParallax isAbsolutelyPositioned> 
-                                <Generating className="absolute left-4 right-4 bottom-5 md:left-1/2 md:right-auto md:bottom-8 md:w-[31rem] md:-translate-x-1/2" />
+                                <ScrollParallax isAbsolutelyPositioned>
+                                    <Generating className="absolute left-4 right-4 bottom-5 md:left-1/2 md:right-auto md:bottom-8 md:w-[31rem] md:-translate-x-1/2" Generating={"AI is generating . . . ."} />
                                 </ScrollParallax>
                             </div>
+
                         </div>
                         <Gradient />
                     </div>
@@ -81,6 +84,19 @@ function Hero() {
                         />
                     </div>
                     {/* <BackgroundCircles /> */}
+                </div>
+
+
+                <div className="relative z-1 flex mx-10 md:mx-24 items-center h-[35rem] mb-32  bg-[#0e151b] mt-10 border border-n-1/10 rounded-3xl overflow-hidden  xl:h-[40rem]">
+                    <div className="absolute top-0 left-0 w-full h-full pointer-events-none md:w-3/5 xl:w-auto">
+                        <img
+                            className="w-full h-full object-contain md:object-right"
+                            width={1000}
+                            height={730}
+                            alt="Smartest AI"
+                            src={service11}
+                        />
+                    </div>
                 </div>
             </div>
             <BottomLine />
