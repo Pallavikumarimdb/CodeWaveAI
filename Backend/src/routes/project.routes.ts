@@ -87,12 +87,8 @@ router.post('/addUserToProject', async (req: Request, res: Response) => {
       return;
     }
 
-    // Add user to project
     //@ts-ignore
     project.users.push(userToAdd._id as mongoose.Types.ObjectId); 
-
-
-
 
     await project.save();
 
@@ -103,7 +99,6 @@ router.post('/addUserToProject', async (req: Request, res: Response) => {
 });
 
 
-// Get project details
 router.get('/get-project/:projectId', authMiddleware, async (req: AuthenticatedRequest, res: Response): Promise<void> => {
   try {
     const { projectId } = req.params;
@@ -130,16 +125,45 @@ router.get('/get-project/:projectId', authMiddleware, async (req: AuthenticatedR
 });
 
 
+router.post('/update-files', authMiddleware, async (req: AuthenticatedRequest, res: Response): Promise<void> => {
+  try {
+    const { projectId, fileTree } = req.body;
+
+    if (!projectId || !fileTree) {
+      res.status(400).json({ error: 'Project ID and file tree are required' });
+      return;
+    }
+
+    const project = await ProjectModel.findOne({
+      _id: projectId,
+      users: req.userId,
+    });
+
+    if (!project) {
+      res.status(403).json({ error: 'Not authorized to update this project' });
+      return;
+    }
+
+    // Update the file tree
+    project.fileTree = fileTree;
+    await project.save();
+
+    res.status(200).json({ message: 'File structure updated successfully' });
+  } catch (error) {
+    res.status(500).json({ error: 'Error updating file structure' });
+  }
+});
+
+
 router.post('/send-message', authMiddleware, async (req: AuthenticatedRequest, res: Response): Promise<void> => {
   try {
-    const { messageContent, projectId } = req.body;
+    const { messageContent, projectId, isUserMessage = true } = req.body;
 
     if (!messageContent || !projectId) {
       res.status(400).json({ error: 'Message content and project ID are required' });
       return;
     }
 
-    // Verify user is part of the project
     const project = await ProjectModel.findOne({
       _id: projectId,
       users: req.userId,
@@ -157,12 +181,15 @@ router.post('/send-message', authMiddleware, async (req: AuthenticatedRequest, r
         messages: [{
           sender: req.userId,
           content: messageContent,
+          isUserMessage: isUserMessage,
+          timestamp: new Date(),
         }],
       });
     } else {
       chatRoom.messages.push({
         sender: req.userId,
         content: messageContent,
+        isUserMessage: isUserMessage,
         timestamp: new Date(),
       });
     }
@@ -176,7 +203,7 @@ router.post('/send-message', authMiddleware, async (req: AuthenticatedRequest, r
   }
 });
 
-// Get project messages
+
 router.get('/messages/:projectId', authMiddleware, async (req: AuthenticatedRequest, res: Response): Promise<void> => {
   try {
     const { projectId } = req.params;
@@ -186,7 +213,6 @@ router.get('/messages/:projectId', authMiddleware, async (req: AuthenticatedRequ
       return;
     }
 
-    // Verify user is part of the project
     const project = await ProjectModel.findOne({
       _id: projectId,
       users: req.userId,

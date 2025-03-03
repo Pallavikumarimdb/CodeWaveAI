@@ -14,8 +14,9 @@ export interface IProject extends Document {
 }
 
 export interface IMessage {
-  sender: Types.ObjectId | IUser;
+  sender: mongoose.Types.ObjectId;
   content: string;
+  isUserMessage: boolean;
   timestamp: Date;
 }
 

@@ -1,5 +1,5 @@
 import mongoose, { Schema } from 'mongoose';
-import { IUser, IProject, IChatRoom } from './types';
+import { IUser, IProject, IChatRoom, IMessage } from './types';
 import 'dotenv/config'
 
 
@@ -50,29 +50,41 @@ const ProjectSchema = new Schema<IProject>({
   timestamps: true
 });
 
-const ChatRoomSchema = new Schema<IChatRoom>({
-  projectId: { 
-    type: Schema.Types.ObjectId, 
-    ref: 'Project', 
-    unique: true 
+
+
+const MessageSchema = new Schema<IMessage>({
+  sender: {
+    type: Schema.Types.ObjectId,
+    ref: 'User',
+    required: true,
   },
-  messages: [{
-    sender: { 
-      type: Schema.Types.ObjectId, 
-      ref: 'User' 
-    },
-    content: String,
-    timestamp: { 
-      type: Date, 
-      default: Date.now 
-    }
-  }],
-  lastUpdated: { 
-    type: Date, 
-    default: Date.now 
-  }
+  content: {
+    type: String,
+    required: true,
+  },
+  isUserMessage: {
+    type: Boolean,
+    default: true,
+  },
+  timestamp: {
+    type: Date,
+    default: Date.now,
+  },
 });
 
+const ChatRoomSchema = new Schema<IChatRoom>({
+  projectId: {
+    type: Schema.Types.ObjectId,
+    ref: 'Project',
+    required: true,
+  },
+  messages: [MessageSchema],
+  lastUpdated: {
+    type: Date,
+    default: Date.now,
+  },
+});
+
+export const ChatRoom = mongoose.model<IChatRoom>('ChatRoom', ChatRoomSchema);
 export const UserModel = mongoose.model<IUser>('User', UserSchema);
 export const ProjectModel = mongoose.model<IProject>('Project', ProjectSchema);
-export const ChatRoom = mongoose.model<IChatRoom>('ChatRoom', ChatRoomSchema);

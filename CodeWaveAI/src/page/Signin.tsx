@@ -15,15 +15,16 @@ export function Signin() {
         const username = usernameRef.current?.value;
         const password = passwordRef.current?.value;
         try {
+            console.log("Signing in..."+process.env.BACKEND_URL + "/users/api/v1/signin");
             const response = await axios.post(process.env.BACKEND_URL + "/users/api/v1/signin", {
                 username,
                 password
             })
-            const { token } = response.data; // Extract token and user data
+            const { token } = response.data;
 
             if (token) {
-                localStorage.setItem("token", token); // Save token to localStorage
-                navigate("/Home"); // Navigate to the Home page
+                localStorage.setItem("token", token);
+                navigate("/Home");
             }
         } catch (error) {
             console.error("Sign-in failed:", error);
@@ -46,7 +47,6 @@ export function Signin() {
             <div className="bg-[#0E161B] rounded-xl shadow-2xl p-8 w-full max-w-md">
                 <h1 className="text-3xl font-bold text-gray-200 mb-8 text-center">Sign In</h1>
 
-                {/* Username Input */}
                 <div className="mb-6">
                     <input
                         className="w-full p-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
@@ -55,7 +55,6 @@ export function Signin() {
                     />
                 </div>
 
-                {/* Password Input */}
                 <div className="mb-6">
                     <input
                         className="w-full p-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
@@ -65,14 +64,12 @@ export function Signin() {
                     />
                 </div>
 
-                {/* Sign In Button */}
                 <button className=" h-11 w-[100%]  hidden lg:flex items-center justify-center p-0.5 mt-10 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group button-css hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800"
                     onClick={signin}
                 >
                     Sign In
                 </button>
 
-                {/* Sign Up Link */}
                 <div className="mt-6 text-center">
                     <span className="text-gray-400">Don't have an account? </span>
                     <Link to="/register" className="text-blue-500 hover:text-blue-800 font-semibold underline underline-offset-2 transition-all">

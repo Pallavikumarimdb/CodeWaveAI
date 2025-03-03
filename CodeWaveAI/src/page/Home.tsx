@@ -15,7 +15,6 @@ export default function Dashboard() {
     const [prompt, setPrompt] = useState("");
     const navigate = useNavigate();
 
-    // Create Project
     async function createProject() {
         try {
             const response = await axios.post(
