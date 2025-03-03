@@ -12,48 +12,76 @@ import projectRoutes from './routes/project.routes.js';
 
 const app = express();
 const httpServer = http.createServer(app);
+
+const allowedOrigins = [
+    "http://localhost:3000", 
+    "http://localhost:5173",  
+    "https://code-wave-ai.vercel.app",  
+    "https://vercel.com", 
+];
+
+
+app.use(
+    cors({
+        origin: (origin, callback) => {
+            if (!origin || allowedOrigins.includes(origin)) {
+                callback(null, true);
+            } else {
+                callback(new Error("Not allowed by CORS"));
+            }
+        },
+        methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+        allowedHeaders: ["Content-Type", "Authorization"],
+        credentials: true, 
+    })
+);
+
+
+app.options('*', (req, res) => {
+    res.header("Access-Control-Allow-Origin", req.headers.origin || "*");
+    res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+    res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
+    res.sendStatus(200);
+});
+
+
 const io = new Server(httpServer, {
     cors: {
-        origin: '*',
-        methods: ['GET', 'POST', 'PUT', 'DELETE'],
+        origin: allowedOrigins,
+        methods: ["GET", "POST", "PUT", "DELETE"],
+        credentials: true,
     }
 });
 
-// Middleware
-app.use(cors());
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// CORS Preflight Handler for /auto/ai-talk
-app.options('/auto/ai-talk', (req, res) => {
-    res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
-    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-    res.send();
-});
 
-// Routes
 app.use('/users', userRoutes);
 app.use('/projects', projectRoutes);
 app.use('/auto', aiRoutes);
 
-// Default Route
+
 app.get('/', (req, res) => {
     res.send('Hello World!');
 });
 
-// Socket.io Authentication and Event Handlers
+
 io.use(async (socket, next) => {
     try {
         const token = socket.handshake.auth?.token;
         const projectId = socket.handshake.query.projectId as string;
+
         if (!projectId || !mongoose.Types.ObjectId.isValid(projectId)) {
             return next(new Error('Invalid or missing projectId'));
         }
+
         const project = await ProjectModel.findById(projectId);
         if (!project) {
             return next(new Error('Project not found'));
         }
+
         if (!token) {
             return next(new Error('Authentication token is missing'));
         }
@@ -61,10 +89,12 @@ io.use(async (socket, next) => {
         if (!process.env.JWT_SECRET) {
             return next(new Error('JWT_SECRET is not defined'));
         }
+
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
         if (!decoded) {
             return next(new Error('Invalid token'));
         }
+
         socket.data.project = project;
         socket.data.user = decoded;
         next();
@@ -73,6 +103,7 @@ io.use(async (socket, next) => {
         next(new Error('Authentication failed'));
     }
 });
+
 
 io.on('connection', (socket) => {
     console.log('User connected:', socket.data.user);
@@ -85,20 +116,20 @@ io.on('connection', (socket) => {
         try {
             const { message } = data;
             console.log(`Received message in room ${roomId}:`, message);
-
             socket.broadcast.to(roomId).emit('project-message', data);
-
         } catch (error) {
             console.error('Error handling project-message:', error);
         }
     });
+
     socket.on('disconnect', () => {
         console.log(`User disconnected from room: ${roomId}`);
         socket.leave(roomId);
     });
 });
 
-// Start Server
-httpServer.listen(3000, () => {
-    console.log('server started');
+
+const PORT = process.env.PORT || 3000;
+httpServer.listen(PORT, () => {
+    console.log(`Server started on port ${PORT}`);
 });
