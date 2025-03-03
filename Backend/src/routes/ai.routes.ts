@@ -4,6 +4,7 @@ import { GoogleGenerativeAI } from "@google/generative-ai";
 import { BASE_PROMPT, getSystemPrompt } from "../prompts";
 import {basePrompt as nodeBasePrompt} from "../defaults/node";
 import {basePrompt as reactBasePrompt} from "../defaults/react";
+import cors from 'cors';
 
 const router = Router();
 
@@ -53,8 +54,9 @@ router.post("/template", async (req, res) => {
     }
 });
 
+router.options('/auto/ai-talk', cors());
 //@ts-ignore
-router.post("/ai-talk", async (req, res) => {
+router.post("/ai-talk", cors(), async (req, res) => {
     const messages = req.body.messages;
 
     try {
