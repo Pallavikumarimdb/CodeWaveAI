@@ -7,7 +7,7 @@ interface TabViewProps {
 
 export function TabView({ activeTab, onTabChange }: TabViewProps) {
   return (
-    <div className="border border-slate-700 p-1 w-[200px] text-sm rounded-3xl pl-2 bg-black flex space-x-2 mb-4">
+    <div className="border border-slate-700 p-1 w-[200px] text-sm rounded-3xl pl-1 bg-[#3b3b3b] ml-4 flex space-x-2 mb-3">
       <button
         onClick={() => onTabChange('code')}
         className={`flex items-center gap-2 px-2 py-1 rounded-3xl transition-colors ${

@@ -13,6 +13,9 @@ import { Loader } from '../components/Loader';
 import { io } from 'socket.io-client';
 import EditorMain from '../codeEditor/EditorMain';
 // import { GradientLight } from '../components/design/Benefits';
+import JSZip from "jszip";
+import { saveAs } from "file-saver";
+import { CloudDownload, Rocket } from 'lucide-react';
 
 
 interface ChatMessage {
@@ -77,6 +80,13 @@ export default function Builder() {
       }
     };
   }, [roomId, project?._id]);
+
+
+  // Function to handle file changes from EditorMain
+  const handleFilesChange = (updatedFiles: FileItem[]) => {
+    setFiles(updatedFiles);
+  };
+
 
   // Handle file updates based on steps
   useEffect(() => {
@@ -174,7 +184,6 @@ export default function Builder() {
     return null;
   };
 
-  // WebContainer mount effect
   useEffect(() => {
     const createMountStructure = (files: FileItem[]): Record<string, any> => {
       const mountStructure: Record<string, any> = {};
@@ -204,6 +213,7 @@ export default function Builder() {
       files.forEach(file => processFile(file, true));
       return mountStructure;
     };
+
 
     const mountStructure = createMountStructure(files);
     webcontainer?.mount(mountStructure);
@@ -340,10 +350,28 @@ export default function Builder() {
     setPrompt("");
   };
 
+
+  async function downloadProject() {
+    const zip = new JSZip();
+    function addFilesToZip(items: FileItem[], path = "") {
+      for (const item of items) {
+        const fullPath = path ? `${path}/${item.name}` : item.name;
+        if (item.type === "file") {
+          zip.file(fullPath, item.content || "");
+        } else if (item.type === "folder" && item.children) {
+          addFilesToZip(item.children, fullPath);
+        }
+      }
+    }
+    addFilesToZip(files);
+    const content = await zip.generateAsync({ type: "blob" });
+    saveAs(content, "project.zip");
+  }
+
   console.log("Files" + selectedFile?.content + selectedFile?.path);
 
   return (
-    <div className="h-screen pb-2 bg-[#0E161B] flex flex-col">
+    <div className="h-screen bg-[#0E161B] flex flex-col">
       <header className="flex h-16  justify-between items-center bg-gradient-to-r from-teal-900 to-slate-900 border-b border-gray-700 px-6 py-4">
         <div className='rounded-md text-center border border-gray-700 p-2 flex items-center justify-center'>
           <h2 className="text-md font-light w-96 overflow-hidden font-bold rounded-md">
@@ -418,14 +446,35 @@ export default function Builder() {
             </div>
           </div>
 
-          <div className="border border-slate-700 col-span-3 bg-[#171717] rounded-lg shadow-lg p-2 h-[calc(100vh-6rem)]">
-            <TabView activeTab={activeTab} onTabChange={setActiveTab} />
-            <div className="h-[calc(100%-4rem)] overflow-hidden flex">
+          <div className="border border-slate-700 col-span-3 pt-2 bg-[#171717] rounded-lg shadow-lg h-[calc(100vh-6rem)]">
+            <div className="flex pr-6 justify-between items-center">
+              <TabView activeTab={activeTab} onTabChange={setActiveTab} />
+              <div className='flex gap-4 justify-between items-center'>
+              <button
+                onClick={downloadProject}
+                className="bg-[#3B3B3B] px-3 py-1 mb-2 text-white rounded text-xs flex items-center gap-2"
+              >
+                <CloudDownload className='w-5 h-5'/>
+                Export
+              </button>
+              <button
+                onClick={downloadProject}
+                className="bg-[#007ccc] px-3 py-1 mb-2 text-white rounded text-xs flex items-center gap-2"
+              >
+                <Rocket className='w-5 h-5'/>
+                Deploy
+              </button>
+              </div>
+
+            </div>
+
+            <div className="h-[calc(100%-3rem)] overflow-hidden flex">
               {activeTab === 'code' ? (
                 <EditorMain
                   files={files}
                   selectedFile={selectedFile}
                   onFileSelect={setSelectedFile}
+                  onFilesChange={handleFilesChange}
                   //@ts-ignore
                   webContainer={webcontainer}
                 />
