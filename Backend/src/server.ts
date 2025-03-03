@@ -1,4 +1,4 @@
-import express from 'express';
+import express, { Request, Response, NextFunction } from 'express';
 import userRoutes from './routes/user.routes.js';
 import aiRoutes from './routes/ai.routes.js';
 import cors from 'cors';
@@ -14,26 +14,38 @@ const allowedOrigins = [
     "https://vercel.com", 
 ];
 
-app.use(
-    cors({
-        origin: (origin, callback) => {
-            if (!origin || allowedOrigins.includes(origin)) {
-                callback(null, true);
-            } else {
-                callback(new Error("Not allowed by CORS"));
-            }
-        },
-        methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-        allowedHeaders: ["Content-Type", "Authorization"],
-        credentials: true, 
-    })
-);
+app.use(cors({
+    origin: function(origin, callback) {
+        if (!origin) return callback(null, true);
+        
+        if (allowedOrigins.indexOf(origin) !== -1) {
+            callback(null, true);
+        } else {
+            console.log("Origin not allowed by CORS:", origin);
+            callback(null, false);
+        }
+    },
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+    credentials: true,
+    maxAge: 86400 
+}));
 
-app.options('*', (req, res) => {
-    res.header("Access-Control-Allow-Origin", req.headers.origin || "*");
+//@ts-ignore
+app.use(function(req: Request, res: Response, next: NextFunction) {
+    // Set CORS headers for every response
+    const origin = req.headers.origin;
+    if (origin && allowedOrigins.includes(origin)) {
+        res.header("Access-Control-Allow-Origin", origin);
+    }
     res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
     res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
-    res.sendStatus(200);
+    res.header("Access-Control-Allow-Credentials", "true");
+    
+    if (req.method === "OPTIONS") {
+        return res.sendStatus(200);
+    }
+    next();
 });
 
 app.use(express.json());
