@@ -53,7 +53,7 @@ export default function Builder() {
 
   useEffect(() => {
     const token = localStorage.getItem('token');
-    socketRef.current = io('http://localhost:3000', {
+    socketRef.current = io(process.env.BACKEND_URL || "http://localhost:3000", {
       auth: { token },
       query: { projectId: project?._id },
     });
