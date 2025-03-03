@@ -54,7 +54,7 @@ router.post("/template", async (req, res) => {
     }
 });
 
-router.options('/auto/ai-talk', cors());
+router.options('/ai-talk', cors());
 //@ts-ignore
 router.post("/ai-talk", cors(), async (req, res) => {
     const messages = req.body.messages;
